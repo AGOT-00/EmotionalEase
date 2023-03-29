@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  {{!-- <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Emotional Support Bot</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.2/tailwind.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head> --}}
+  {{>head}}
+  <body class="bg-blue-200">
+    <!-- Hero Section -->
+    {{>header}}
+    <section
+      class="flex flex-col items-center justify-center h-screen bg-blue-200"
+    >
+      <h1 class="text-5xl font-bold text-gray-800 text-center mb-8">
+        Get Emotional Support Anytime, Anywhere
+      </h1>
+      <p class="text-xl text-gray-700 text-center mb-8">
+        Our emotional support bot is here to help you through your ups and
+        downs. Whether you need someone to talk to or want to create comforting
+        images, we've got you covered.
+      </p>
+      <a
+        href="/Signup"
+        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out"
+        >Get Started</a
+      >
+    </section>
+    <section class="py-16 px-4">
+      <h2 class="text-3xl font-bold text-gray-800 text-center mb-8">
+        Features
+      </h2>
+      <div
+        class="max-w-6xl mx-auto grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+      >
+        <!-- Feature Box 1 -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+          <h3 class="text-xl font-bold text-gray-800 mb-4">
+            Basic Prompts Suggestions
+          </h3>
+          <p class="text-gray-700">
+            Our emotional support bot provides you with basic prompts
+            suggestions to help you start a conversation. You can choose from
+            questions such as "How are you feeling today?" or "What would you
+            like to talk about?" to get started.
+          </p>
+        </div>
+        <div class="bg-white rounded-lg shadow-lg p-6">
+          <h3 class="text-xl font-bold text-gray-800 mb-4">
+            Payment Feature for Unlimited Features
+          </h3>
+          <p class="text-gray-700">
+            Our emotional support bot offers a premium version with unlimited
+            features. With our payment feature, you can access up to 1000
+            prompts and 50 image prompts per month. For those who need unlimited
+            support, we offer a Premium+ version.
+          </p>
+        </div>
+        <div class="bg-white rounded-lg shadow-lg p-6">
+          <h3 class="text-xl font-bold text-gray-800 mb-4">
+            Login/Signup Feature
+          </h3>
+          <p class="text-gray-700">
+            To access our premium and premium+ features, we offer a login/signup
+            feature. Once you sign up, you can access all the features our
+            emotional support bot has to offer.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="bg-blue-200 py-12 px-4">
+      <div class="max-w-6xl mx-auto flex flex-col md:flex-row">
+        <div class="flex-1 py-32">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">
+            Dall-e Integration
+          </h2>
+          <p class="text-xl text-gray-700 mb-8">
+            In our premium version, we offer Dall-e integration where you can
+            create comforting images of cats, puppies, cute things, and soft
+            things. Our emotional support bot is here to help you feel better in
+            every way possible.
+          </p>
+        </div>
+        <div class="flex-1">
+          <img
+            src="./assests/cateimagebyOurAPI.png"
+            alt=""
+            class="rounded-lg shadow-lg"
+          />
+        </div>
+      </div>
+    </section>
+    <section class="py-16 px-4">
+      <h2 class="text-3xl font-bold text-gray-800 text-center mb-8">Pricing</h2>
+      <div class="max-w-6xl mx-auto flex flex-col md:flex-row">
+        <!-- Free Version Box -->
+        <div
+          class="bg-white rounded-lg shadow-lg p-6 flex-1 m-4 md:m-0 md:mr-4"
+        >
+          <h3 class="text-xl font-bold text-gray-800 mb-4">Free Version</h3>
+          <p class="text-gray-700">
+            Get started with our free version which includes 5 prompts per
+            month. Sign up now to receive emotional support from our bot.
+          </p>
+          <a
+            href="/Signup"
+            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full mt-4 transition duration-300 ease-in-out block md:inline-block"
+            >Sign Up</a
+          >
+        </div>
+
+        <!-- Premium Version Box -->
+        <div
+          class="bg-white rounded-lg shadow-lg p-6 flex-1 m-4 md:m-0 md:mr-4"
+        >
+          <h3 class="text-xl font-bold text-gray-800 mb-4">Premium Version</h3>
+          <p class="text-gray-700">
+            Upgrade to our premium version and get
+            1000 prompts, 50 image prompts per month, and Dall-e
+            integration for creating comforting images.
+          </p>
+          <a
+            href="/Pricing"
+            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full mt-4 transition duration-300 ease-in-out block md:inline-block"
+            >Upgrade to Premium</a
+          >
+        </div>
+
+        <!-- Premium+ Version Box -->
+        <div
+          class="bg-white rounded-lg shadow-lg p-6 flex-1 m-4 md:m-0 md:ml-4"
+        >
+          <h3 class="text-xl font-bold text-gray-800 mb-4">Premium+ Version</h3>
+          <p class="text-gray-700">
+            Get unlimited support from our emotional support bot along with all
+            the features of our premium Version.
+          </p>
+          <a
+            href="/Pricing"
+            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full mt-4 transition duration-300 ease-in-out block md:inline-block"
+            >Upgrade to Premium+</a
+          >
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

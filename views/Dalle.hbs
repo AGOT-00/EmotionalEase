@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  {{> head}}
+  <body class="bg-blue-200">
+    {{> header}}
+    <div class="container mx-auto py-8">
+      <div class="max-w-full mx-auto bg-gray-100 rounded-lg shadow-lg">
+        <div class="flex justify-between border-b border-gray-100 px-6 py-4">
+          <div class="text-lg font-bold">Image Generator</div>
+          <div class="flex">
+            <div class="mr-4">
+              <a href="#" class="text-gray-600 hover:text-gray-800"
+                ><i class="fa fa-search"></i
+              ></a>
+            </div>
+            <div>
+              <a href="#" class="text-gray-600 hover:text-gray-800"
+                ><i class="fa fa-ellipsis-v"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="px-6 py-4">
+          <div id="chat-log" class="overflow-y-auto" style="height: 67vh">
+            
+          </div>
+          <form id="chat-form" class="mt-4">
+            <div class="flex items-center">
+              <input
+                id="chat-input"
+                class="flex-1 bg-gray-300 rounded-full px-4 py-2 border-transparent focus:outline-none"
+                type="text"
+                placeholder="Type your message..."
+              />
+              <button
+                id="chat-button"
+                class="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+                type="submit"
+              >
+                Send
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      const chatForm = document.querySelector("#chat-form");
+      const chatInput = document.querySelector("#chat-input");
+      const chatLog = document.querySelector("#chat-log");
+
+      window.addEventListener('load', () => {
+        chatLog.innerHTML += '<div class="mb-4"><span class="font-bold">Bot:</span> Welcome to our chatbot! How can I assist you today?</div>';
+      });
+
+      chatForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const message = chatInput.value.trim();
+
+        if (message === "") {
+          return;
+        }
+
+        chatLog.innerHTML += `<div class="flex items-start mb-4"><div class="ml-auto"><div class="text-sm font-bold">You</div><div class="bg-gray-300 rounded-lg px-3 py-2 text-sm text-gray-600 mt-1"> ${message}</div></div></div>`;
+        chatInput.value = "";
+
+        axios
+          .post("/api/generate-image", { query: message })
+          .then((response) => {
+            const answer = response.data.answer;
+            chatLog.innerHTML += `<div class="flex items-start mb-4"><div class="ml-4"><div class="text-sm font-bold">Bot</div><img class="bg-blue-100 rounded-lg px-3 py-2 text-sm text-blue-600 mt-1" src="${answer}"></div></div>`;
+            chatLog.scrollTop = chatLog.scrollHeight;
+          })
+          .catch((error) => {
+            chatLog.innerHTML += `<div class="flex items-start mb-4"><div class="ml-4"><div class="text-sm font-bold">Bot</div><div class="bg-blue-100 rounded-lg px-3 py-2 text-sm text-red-600 mt-1"> ${error.response.data.error}</div></div></div>`;
+            chatLog.scrollTop = chatLog.scrollHeight;
+          });
+      });
+    </script>
+  </body>
+</html>

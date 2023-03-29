@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>User Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css"
+    />
+  </head>
+
+  <body class="bg-gray-100">
+    <div class="w-full mx-auto py-6 p-6 sm:px-6 lg:px-8">
+      <div class="container mx-auto">
+        <div class="mt-8">
+          <h2 class="text-lg font-medium text-gray-900 mb-4 text-center">
+            Account Settings
+          </h2>
+          <div class="ErrMsg" id="ErrMsg" name="ErrMsg">
+            {{#if Error}}
+          <h1 class="text-red-500">{{message}}</h1>
+        {{/if}}
+        </div>
+          <div class="w-full ">
+            <div class="mt-8">
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full md:w-full px-3 mb-6 md:mb-0">
+                  <label
+                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    for="grid-first-name"
+                  >
+                    Complete Name
+                  </label>
+                  <input
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="name"
+                    type="text"
+                    value="{{message.Name}}"
+                  />
+                </div>
+              </div>
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  <label
+                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    for="olpassword"
+                  >
+                    Current Password
+                  </label>
+                  <input
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="olpassword"
+                    type="password"
+                    placeholder="**********"
+                  />
+                  
+                </div>
+                <div class="w-full md:w-1/2 px-3">
+                  <label
+                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    for="newpassword"
+                  >
+                    New Password
+                  </label>
+                  <input
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="newpassword"
+                    type="password"
+                    placeholder="**********"
+                  />
+                </div>
+              </div>
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full md:w-1/2 px-3">
+                  <label
+                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    for="grid-email"
+                  >
+                    Email
+                  </label>
+                  <input
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="email"
+                    type="email"
+                    value="{{message.Email}}"
+                    disabled
+                  />
+                </div>
+                <div class="w-full md:w-1/2 px-3">
+                  <label
+                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    for="grid-dob"
+                  >
+                    Date of Birth
+                  </label>
+                  <input
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="dob"
+                    type="date"
+                    value="{{message.DOB}}"
+                    disable
+                  />
+                </div>
+              </div>
+            </div>
+             <div class="mt-4 text-center">
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="Save" name="Save"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col md:flex-row -mx-4 mt-8 mb-4 px-10 md:px-20">
+        <div class="md:w-full mx-4">
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-lg font-medium text-gray-900 mb-4 text-center">
+              Remaining 
+            </h2>
+            <div class="mt-2 flex justify-between">
+              <span class="text-gray-600">Prompts Remaining:</span>
+              <span class="text-gray-800 font-medium">{{Prompt}}</span>
+            </div>
+            <div class="mt-2 flex justify-between">
+              <span class="text-gray-600">Images Remaining:</span>
+              <span class="text-gray-800 font-medium">{{Images}}</span>
+            </div>
+            
+            <div class="mt-4 text-center">
+              <button onclick="location.href='/Pricing'"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Check Pricing
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <script>
+        const Button = document.querySelector("#Save");
+        Button.addEventListener("click", () => {
+          const errmsg = document.querySelector("#ErrMsg");
+          while (errmsg.firstChild) {
+              errmsg.removeChild(errmsg.firstChild);
+          }
+          
+
+          const nameInput = document.getElementById('name');
+          const oldPasswordInput = document.getElementById('olpassword');
+          const newPasswordInput = document.getElementById('newpassword');
+          const dobInput = document.getElementById('dob');
+
+          const  name= nameInput ? nameInput.value : '';
+          const  oldPassword= oldPasswordInput ? oldPasswordInput.value : '';
+          const  newPassword= newPasswordInput ? newPasswordInput.value : '';
+          const  dob= dobInput ? dobInput.value : '';
+
+            if (name.length < 3 || name.length > 50) {
+              const errorDiv = document.createElement("h1");
+              errorDiv.className = "text-red-500";
+              errorDiv.textContent = "Error: Name must be between 3 and 50 characters";
+              errmsg.appendChild(errorDiv);
+
+            } else if (oldPassword.length < 4 || oldPassword.length > 50) {
+              const errorDiv = document.createElement("h1");
+              errorDiv.className = "text-red-500";
+              errorDiv.textContent = "Kindly Enter Password to Make Changes";
+              errmsg.appendChild(errorDiv);
+            } else if (dob.length !== 10) {
+              const errorDiv = document.createElement("h1");
+              errorDiv.className = "text-red-500";
+              errorDiv.textContent = "Invalid date of birth format";
+              errmsg.appendChild(errorDiv);
+              console.log('Error: Invalid date of birth format');
+            } else {
+              axios.post('/UserDashboard', {
+                name: name,
+                oldPassword: oldPassword,
+                newPassword: newPassword,
+                dob: dob
+              })
+              .then(function (response) {
+                const errorMessage = response.data.message;
+                const errorDiv = document.createElement("h1");
+                errorDiv.className = "text-red-500";
+                errorDiv.textContent = errorMessage;
+                errmsg.appendChild(errorDiv);
+                console.log("asds");
+              })
+              .catch(function (error) {
+                console.log("Error Detected");
+                const errorMessage = error.response.data.error;
+                const errorDiv = document.createElement("h1");
+                errorDiv.className = "text-red-500";
+                errorDiv.textContent = errorMessage;
+                errmsg.appendChild(errorDiv);
+              });
+            }
+        });
+      </script>
+  </body>
+</html>

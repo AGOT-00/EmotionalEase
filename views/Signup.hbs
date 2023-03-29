@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  {{> head}}
+  <body>
+    
+    <div class="bg-blue-200 h-screen flex justify-center items-center">
+      
+      <div class="bg-white p-8 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-semibold mb-4 text-center">Sign Up</h2>
+        {{#if message}}
+          <h1 class="text-red-500">{{message}}</h1>
+        {{/if}}
+        <form class="mb-4" action="/Signup" method="post" id="">
+        <div class="" id="signup-form">
+            <label class="block text-gray-700 font-semibold mt-4 mb-2" for="name">
+            Name
+          </label>
+          <input
+            class="border border-gray-400 p-2 w-full rounded-lg"
+            type="text"
+            id="name"
+            name="name"
+            minlength="4"
+            required
+          />
+          <label
+            class="block text-gray-700 font-semibold mt-4 mb-2"
+            for="email"
+          >
+            Email Address
+          </label>
+          <input
+            class="border border-gray-400 p-2 w-full rounded-lg"
+            type="email"
+            id="email"
+            name="email"
+            required
+          />
+          <label
+            class="block text-gray-700 font-semibold mt-4 mb-2"
+            for="password"
+          >
+            Password
+          </label>
+          <input
+            class="border border-gray-400 p-2 w-full rounded-lg"
+            type="password"
+            id="password"
+            name="password"
+            minlength="8"
+            required
+          />
+          <label
+            class="block text-gray-700 font-semibold mt-4 mb-2"
+            for="dob"
+          >
+            Date of Birth
+          </label>
+          <input
+            class="border border-gray-400 p-2 w-full rounded-lg"
+            type="date"
+            id="dob"
+            name="dob"
+            required
+          />
+          <button
+            class="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full"
+            type="button"
+            id="signup-button"
+          >
+            Sign Up
+          </button>
+        </div>
+          <div class="hidden" id="otp-form">
+          <label class="block text-gray-700 font-semibold mt-4 mb-2" for="otp">
+            Enter OTP
+          </label>
+          <input
+            class="border border-gray-400 p-2 w-full rounded-lg"
+            type="text"
+            id="otp"
+            name="otp"
+            minlength="6"
+            maxlength="6"
+            required
+          />
+          <button
+            class="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full"
+            type="submit"
+          >
+            Confirm OTP
+          </button>
+          </div>
+        </form>
+        <p class="text-sm text-gray-600">
+          Already have an account?
+          <a href="/Login" class="text-blue-500 font-semibold">Sign in here.</a>
+        </p>
+        <p class="mt-4 text-gray-600">
+          Take a deep breath and remember that you've got this.
+        </p>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>const signupForm = document.querySelector("#signup-form");
+            const otpForm = document.querySelector("#otp-form");
+            const signupButton = document.querySelector("#signup-button");
+      
+signupButton.addEventListener("click", () => {
+  const nameInput = document.querySelector("#name");
+  const emailInput = document.querySelector("#email");
+  const passwordInput = document.querySelector("#password");
+  const dobInput = document.querySelector("#dob");
+  
+  if (nameInput.value.length < 4) {
+    alert("Name should be at least 4 characters long.");
+    return;
+  }
+  
+  if (!emailInput.checkValidity()) {
+    alert("Invalid email address.");
+    return;
+  }
+  
+  if (passwordInput.value.length < 8) {
+    alert("Password should be at least 8 characters long.");
+    return;
+  }
+  
+  const dob = new Date(dobInput.value);
+  const now = new Date();
+  const age = now.getFullYear() - dob.getFullYear();
+  
+  if (now.getMonth() < dob.getMonth() || (now.getMonth() === dob.getMonth() && now.getDate() < dob.getDate())) {
+    age--;
+  }
+  
+  if (age < 12) {
+    alert("You must be at least 12 years old to sign up.");
+    return;
+  }
+
+  axios.post("/api/generate-email", {
+    name: document.querySelector("#name").value,
+    email: document.querySelector("#email").value,
+    password: document.querySelector("#password").value,
+    dob: document.querySelector("#dob").value
+  }, {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8"
+    }
+  })
+    .then(response => {
+      if (response.status === 200) {
+        // Show OTP form
+        signupForm.classList.add("hidden");
+        otpForm.classList.remove("hidden");
+      } else {
+        // Display error message
+        console.log("Error Detected");
+        const errorMessage = response.data.message;
+        const errorDiv = document.createElement("div");
+        errorDiv.className = "text-red-500";
+        errorDiv.textContent = errorMessage;
+        signupForm.insertBefore(errorDiv, signupForm.firstChild);
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    });
+});
+
+
+signupButton.addEventListener("click", () => {
+  
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  {{> head}}
+  <body>
+    {{>header}}
+    <div class="bg-blue-200 min-h-screen flex justify-center items-center w-screen">
+      <section class="bg-blue-200 h-full w-full  lg:px-56">
+
+        <div class="h-full px-4">
+          <h2 class="text-3xl font-semibold mb-8 items-center text-center">Choose your plan</h2>
+          <div class="h-full w-full">
+            <div class="flex md:flex-row flex-col h-full -mx-4 w-full">
+
+              <div class="w-full md:w-2/4 md:h-1/2 h-full px-4 mb-8">
+                <div class="bg-white rounded-lg h-full shadow-lg p-8">
+                  <h3 class="text-2xl font-semibold mb-4 text-center">Free</h3>
+                  <p class="text-gray-600 mb-8">5 Prompts</p>
+                  <p class="text-gray-600 mb-8">No Images</p>
+                  <button class="bg-blue-500 text-white py-2 px-4 rounded-lg w-full" onclick="navigateTo('/Bot')">Get Started</button>
+                </div>
+              </div>
+              
+              <div class="w-full md:w-2/4 md:h-1/2 h-full px-4 mb-8">
+                <div class="bg-white rounded-lg h-full shadow-lg p-8">
+                  <h3 class="text-2xl font-semibold mb-4 text-center">Premium</h3>
+                  <p class="text-gray-600 mb-8">1000 Prompts</p>
+                  <p class="text-gray-600 mb-8">50 Images</p>
+                  <button class="bg-blue-500 text-white py-2 px-4 rounded-lg w-full" name="plan" value="1">Upgrade Now</button>
+                </div>
+              </div>
+
+              <div class="w-full md:w-2/4 md:h-1/2 h-full px-4 mb-8">
+                <div class="bg-white rounded-lg h-full shadow-lg p-8">
+                  <h3 class="text-2xl font-semibold mb-4 text-center">Premium Plus</h3>
+                  <p class="text-gray-600 mb-8">Unlimited Prompts</p>
+                  <p class="text-gray-600 mb-8">Unlimited Images</p>
+                  <button class="bg-blue-500 text-white py-2 px-4 rounded-lg w-full" name="plan" value="2">Upgrade Now</button>
+                </div>
+              </div>
+            </div>
+                            <h1 class="text-3xl text-red-500">Kindly Pay with Your registered Email.</h1>
+
+          </div>
+        </div>
+      </section>
+    </div>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      function navigateTo(url) {
+        console.log("Called.");
+        window.location.href = url;
+      }
+</script>
+    <script>
+      const buttons = document.querySelectorAll('button[name="plan"]');
+
+      buttons.forEach((button) => {
+        button.addEventListener('click', (event) => {
+          event.preventDefault();
+
+          const plan = event.target.value;
+
+          axios.post('/PayforPlan', { plan })
+            .then((response) => {
+              if (response.status === 200) {
+                if(response.data.message=="Login"){
+                  window.location.href = '/Login';
+                }
+                console.log(response);
+                window.location.href = response.data.url;
+              } else {
+                console.error('Error1:', response.data);
+              }
+            })
+            .catch((error) => {
+              console.error('Error2:', error);
+            });
+        });
+      });
+    </script>
+  </body>
+</html>
